@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PANEL — Leitor de Quadrinhos</title>
+  <title>PANEL — Comic Book Reader</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,7 +21,6 @@
       --accent-dim: rgba(232,93,58,0.12);
       --accent-border: rgba(232,93,58,0.3);
       --green: #22c55e;
-      --blue: #4f8ef7;
     }
 
     html { scroll-behavior: smooth; }
@@ -33,7 +32,6 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -45,31 +43,21 @@
       pointer-events: none;
       z-index: 0;
     }
-
     .glow {
       position: fixed;
-      width: 700px;
-      height: 400px;
+      width: 700px; height: 400px;
       border-radius: 50%;
       background: radial-gradient(ellipse, rgba(232,93,58,0.08) 0%, transparent 70%);
-      top: -150px;
-      left: 50%;
+      top: -150px; left: 50%;
       transform: translateX(-50%);
       pointer-events: none;
       z-index: 0;
     }
+    .wrap { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 28px; }
 
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
+    /* NAV */
     nav {
-      position: sticky;
-      top: 0;
+      position: sticky; top: 0;
       background: rgba(12,12,14,0.88);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -77,23 +65,12 @@
       z-index: 100;
     }
     .nav-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 28px;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 900px; margin: 0 auto; padding: 0 28px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
     }
-    .logo {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--text);
-      text-decoration: none;
-      text-transform: uppercase;
-    }
+    .logo { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: var(--text); text-decoration: none; text-transform: uppercase; }
     .logo span { color: var(--accent); }
+    .nav-right { display: flex; gap: 12px; align-items: center; }
     .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
@@ -103,32 +80,38 @@
       color: var(--muted) !important; font-size: 13px !important;
       transition: border-color 0.15s, color 0.15s !important;
     }
-    .nav-gh:hover { color: var(--text) !important; border-color: var(--text); }
+    .nav-gh:hover { color: var(--text) !important; }
 
+    /* LANG TOGGLE */
+    .lang-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 12px;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .lang-btn:hover { color: var(--text); border-color: var(--accent-border); }
+    .lang-flag { font-size: 14px; }
+
+    /* HERO */
     .hero { padding: 110px 0 90px; text-align: center; }
     .badge {
       display: inline-flex; align-items: center; gap: 7px;
       background: var(--accent-dim); border: 1px solid var(--accent-border);
       color: var(--accent2); font-size: 12px; font-weight: 500;
-      padding: 5px 14px; border-radius: 999px; margin-bottom: 32px; letter-spacing: 0.2px;
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 32px;
     }
-    .badge-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      animation: pulse 2.5s ease infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
-    }
-    .hero-logo {
-      font-size: clamp(52px, 10vw, 96px); font-weight: 800; letter-spacing: 12px;
-      text-transform: uppercase; line-height: 1; margin-bottom: 6px; color: var(--text);
-    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2.5s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+    .hero-logo { font-size: clamp(52px,10vw,96px); font-weight: 800; letter-spacing: 12px; text-transform: uppercase; line-height: 1; margin-bottom: 6px; }
     .hero-logo span { color: var(--accent); }
-    .hero-tagline {
-      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 28px; font-weight: 500;
-    }
+    .hero-tagline { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; font-weight: 500; }
     .hero p { color: var(--muted); font-size: 17px; max-width: 480px; margin: 0 auto 48px; line-height: 1.65; }
     .dl-main {
       display: inline-flex; align-items: center; gap: 12px;
@@ -140,22 +123,16 @@
     .dl-main svg { width: 20px; height: 20px; }
     .hero-meta { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 14px; }
     .hero-meta span { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
-    .hero-meta a { color: var(--accent2); text-decoration: none; font-size: 13px; transition: color 0.15s; }
-    .hero-meta a:hover { color: var(--accent); text-decoration: underline; }
+    .hero-meta a { color: var(--accent2); text-decoration: none; font-size: 13px; }
+    .hero-meta a:hover { text-decoration: underline; }
 
+    /* SCREENSHOTS */
     .screens-section { padding: 20px 0 80px; }
     .screens-label { text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-    .screens-scroll {
-      display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px;
-      scrollbar-width: thin; scrollbar-color: var(--surface3) transparent;
-    }
+    .screens-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--surface3) transparent; }
     .screens-scroll::-webkit-scrollbar { height: 6px; }
     .screens-scroll::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 4px; }
-    .screen-card {
-      flex-shrink: 0; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden; width: 280px;
-      transition: border-color 0.15s;
-    }
+    .screen-card { flex-shrink: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; width: 280px; transition: border-color 0.15s; }
     .screen-card:hover { border-color: var(--border2); }
     .screen-card img { width: 100%; display: block; height: 160px; object-fit: cover; object-position: top; }
     .screen-card-label { padding: 10px 14px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); }
@@ -163,56 +140,60 @@
     .sep { height: 1px; background: var(--border); margin: 64px 0; }
 
     .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    .section-title { font-size: clamp(26px, 4vw, 34px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .section-title { font-size: clamp(26px,4vw,34px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
     .section-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin-bottom: 44px; line-height: 1.6; }
 
-    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    /* FEATURES */
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); gap: 14px; }
     .feat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 22px 20px; transition: all 0.2s; }
     .feat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
     .feat-icon { font-size: 22px; margin-bottom: 14px; display: block; }
     .feat-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
     .feat-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-    .formats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    /* FORMATS */
+    .formats-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 12px; }
     .format-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
     .format-item:hover { border-color: var(--border2); }
-    .format-ext { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; font-weight: 600; color: var(--accent2); background: var(--accent-dim); padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
+    .format-ext { font-family: 'SF Mono','Fira Code',monospace; font-size: 13px; font-weight: 600; color: var(--accent2); background: var(--accent-dim); padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
     .format-info .fname { font-size: 14px; font-weight: 500; }
     .format-info .fnote { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .shortcuts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+    /* SHORTCUTS */
+    .shortcuts-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 10px; }
     .shortcut-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; transition: border-color 0.15s; }
     .shortcut-row:hover { border-color: var(--border2); }
     .shortcut-row .action { color: var(--muted); }
     .kbd-group { display: flex; gap: 4px; align-items: center; }
-    kbd { background: var(--surface3); border: 1px solid var(--border2); border-radius: 5px; padding: 2px 7px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; color: var(--text); line-height: 1.6; }
+    kbd { background: var(--surface3); border: 1px solid var(--border2); border-radius: 5px; padding: 2px 7px; font-family: 'SF Mono','Fira Code',monospace; font-size: 11px; color: var(--text); line-height: 1.6; }
     .kbd-sep { color: var(--muted); font-size: 11px; }
 
+    /* TERMINAL */
     .terminal { background: #08080a; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .terminal-bar { padding: 10px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 7px; }
     .t-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .t-r { background: #ff5f57; } .t-y { background: #ffbd2e; } .t-g { background: #28c840; }
+    .t-r{background:#ff5f57}.t-y{background:#ffbd2e}.t-g{background:#28c840}
     .t-title { font-size: 12px; color: var(--muted); margin-left: auto; font-family: monospace; }
-    .terminal-body { padding: 22px 24px; font-family: 'Fira Code', 'Cascadia Code', 'SF Mono', monospace; font-size: 13.5px; line-height: 1.8; }
-    .t-comment { color: #4a4a5a; } .t-prompt { color: var(--accent); user-select: none; }
-    .t-cmd { color: #e2e2e8; } .t-out { color: var(--green); }
+    .terminal-body { padding: 22px 24px; font-family: 'Fira Code','Cascadia Code','SF Mono',monospace; font-size: 13.5px; line-height: 1.8; }
+    .t-comment{color:#4a4a5a}.t-prompt{color:var(--accent);user-select:none}.t-cmd{color:#e2e2e8}.t-out{color:var(--green)}
     .t-line { display: flex; gap: 10px; }
 
-    .platforms-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 36px; }
+    /* PLATFORMS */
+    .platforms-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin-top: 36px; }
     .plat-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
     .plat-item:hover { border-color: var(--border2); }
     .plat-item.active { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); }
     .plat-icon { font-size: 26px; }
     .plat-name { font-size: 14px; font-weight: 600; }
     .plat-status { font-size: 12px; margin-top: 2px; }
-    .status-ok { color: var(--green); } .status-soon { color: var(--accent2); }
+    .status-ok{color:var(--green)}.status-soon{color:var(--accent2)}
 
+    /* FOOTER */
     footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--muted); font-size: 13px; }
     .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
     .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .footer-links a:hover { color: var(--text); }
-    .footer-copy a { color: var(--accent2); text-decoration: none; transition: color 0.15s; }
-    .footer-copy a:hover { color: var(--accent); text-decoration: underline; }
+    .footer-copy a { color: var(--accent2); text-decoration: none; }
 
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -222,23 +203,28 @@
   </style>
 </head>
 <body>
-
 <div class="glow"></div>
 
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#">PAN<span>E</span>L</a>
-    <ul class="nav-links">
-      <li><a href="#features">Recursos</a></li>
-      <li><a href="#formatos">Formatos</a></li>
-      <li><a href="#atalhos">Atalhos</a></li>
-      <li>
-        <a class="nav-gh" href="https://github.com/lucrazy-fn/PANEL-ComicBookReader" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-      </li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="nav.features">Recursos</a></li>
+        <li><a href="#formatos" data-i18n="nav.formats">Formatos</a></li>
+        <li><a href="#atalhos" data-i18n="nav.shortcuts">Atalhos</a></li>
+        <li>
+          <a class="nav-gh" href="https://github.com/lucrazy-fn/PANEL-ComicBookReader" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">
+        <span class="lang-flag" id="langFlag">🇺🇸</span>
+        <span id="langLabel">EN</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -246,17 +232,17 @@
   <div class="wrap">
     <div class="badge">
       <span class="badge-dot"></span>
-      v1.2 Beta — disponível agora
+      <span data-i18n="badge">v1.2 Beta — disponível agora</span>
     </div>
     <h1 class="hero-logo">PAN<span>E</span>L</h1>
-    <p class="hero-tagline">Leitor de quadrinhos para Windows</p>
-    <p>Sem propagandas. Sem conta. Sem internet.<br>Só você e seus quadrinhos.</p>
+    <p class="hero-tagline" data-i18n="tagline">Leitor de quadrinhos para Windows</p>
+    <p data-i18n="desc">Sem propagandas. Sem conta. Sem internet.<br>Só você e seus quadrinhos.</p>
     <a class="dl-main" href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases/latest" target="_blank">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/>
         <path d="M4 18h16" stroke-linecap="round"/>
       </svg>
-      Baixar para Windows
+      <span data-i18n="dlBtn">Baixar para Windows</span>
     </a>
     <div class="hero-meta">
       <span>
@@ -269,32 +255,32 @@
       </span>
       <span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        Licença MIT
+        MIT License
       </span>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases" target="_blank">Ver todas as versões →</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases" target="_blank" data-i18n="allVersions">Ver todas as versões →</a>
     </div>
   </div>
 </section>
 
 <section class="screens-section">
   <div class="wrap">
-    <p class="screens-label">Telas do app</p>
+    <p class="screens-label" data-i18n="screensLabel">Telas do app</p>
     <div class="screens-scroll">
       <div class="screen-card">
-        <div class="screen-card-label">Biblioteca</div>
-        <img alt="Biblioteca" src="https://github.com/user-attachments/assets/4c4a5d9f-bb73-4168-b752-f7056dc79b82" loading="lazy" />
+        <div class="screen-card-label" data-i18n="screen1">Biblioteca</div>
+        <img alt="Library" src="https://github.com/user-attachments/assets/4c4a5d9f-bb73-4168-b752-f7056dc79b82" loading="lazy" />
       </div>
       <div class="screen-card">
-        <div class="screen-card-label">Leitor</div>
-        <img alt="Leitor" src="https://github.com/user-attachments/assets/0716f1d7-a6b7-4375-b6dd-7a538e4c024e" loading="lazy" />
+        <div class="screen-card-label" data-i18n="screen2">Leitor</div>
+        <img alt="Reader" src="https://github.com/user-attachments/assets/0716f1d7-a6b7-4375-b6dd-7a538e4c024e" loading="lazy" />
       </div>
       <div class="screen-card">
-        <div class="screen-card-label">Hover nas capas</div>
-        <img alt="Hover nas capas" src="https://github.com/user-attachments/assets/b48b07cf-1543-4e7f-bd35-e4357ad06982" loading="lazy" />
+        <div class="screen-card-label" data-i18n="screen3">Hover nas capas</div>
+        <img alt="Cover hover" src="https://github.com/user-attachments/assets/b48b07cf-1543-4e7f-bd35-e4357ad06982" loading="lazy" />
       </div>
       <div class="screen-card">
-        <div class="screen-card-label">Coleções</div>
-        <img alt="Coleções" src="https://github.com/user-attachments/assets/c7aa22d4-af69-4af9-8d30-875d5de88e21" loading="lazy" />
+        <div class="screen-card-label" data-i18n="screen4">Coleções</div>
+        <img alt="Collections" src="https://github.com/user-attachments/assets/c7aa22d4-af69-4af9-8d30-875d5de88e21" loading="lazy" />
       </div>
     </div>
   </div>
@@ -304,18 +290,18 @@
 
 <section id="features">
   <div class="wrap">
-    <div class="section-eyebrow">Recursos</div>
-    <h2 class="section-title">Tudo o que você precisa para ler</h2>
-    <p class="section-sub">Feito por um leitor de quadrinhos, para leitores de quadrinhos.</p>
+    <div class="section-eyebrow" data-i18n="feat.eyebrow">Recursos</div>
+    <h2 class="section-title" data-i18n="feat.title">Tudo o que você precisa para ler</h2>
+    <p class="section-sub" data-i18n="feat.sub">Feito por um leitor de quadrinhos, para leitores de quadrinhos.</p>
     <div class="feat-grid">
-      <div class="feat-card"><span class="feat-icon">📚</span><h3>Biblioteca inteligente</h3><p>Capas em grade carregadas em segundo plano. Filtros por status: não lidos, lendo, concluídos e favoritos.</p></div>
-      <div class="feat-card"><span class="feat-icon">🔍</span><h3>Busca rápida</h3><p>Filtre por título, série, autor ou editora. Acesso imediato sem precisar rolar a biblioteca inteira.</p></div>
-      <div class="feat-card"><span class="feat-icon">📖</span><h3>Leitor completo</h3><p>Zoom com cursor, arrastar, rotação, controle de brilho, modo imersivo e barra de progresso clicável.</p></div>
-      <div class="feat-card"><span class="feat-icon">▭▭</span><h3>Página dupla</h3><p>Visualize duas páginas lado a lado, inclusive no modo mangá — do jeito que o artista imaginou.</p></div>
-      <div class="feat-card"><span class="feat-icon">🖼️</span><h3>Miniaturas</h3><p>Faixa com todas as páginas em miniatura. Clique em qualquer uma para pular direto.</p></div>
-      <div class="feat-card"><span class="feat-icon">📁</span><h3>Coleções automáticas</h3><p>Subpastas viram coleções. Arquivos com nomes similares são agrupados em séries com progresso unificado.</p></div>
-      <div class="feat-card"><span class="feat-icon">🔖</span><h3>Bookmarks</h3><p>Marque páginas importantes. Todos os bookmarks ficam visíveis na barra de progresso.</p></div>
-      <div class="feat-card"><span class="feat-icon">💾</span><h3>Backup e restauração</h3><p>Exporte progresso, bookmarks e favoritos em JSON. Útil ao trocar de computador.</p></div>
+      <div class="feat-card"><span class="feat-icon">📚</span><h3 data-i18n="f1.t">Biblioteca inteligente</h3><p data-i18n="f1.d">Capas em grade carregadas em segundo plano. Filtros por status: não lidos, lendo, concluídos e favoritos.</p></div>
+      <div class="feat-card"><span class="feat-icon">🔍</span><h3 data-i18n="f2.t">Busca rápida</h3><p data-i18n="f2.d">Filtre por título, série, autor ou editora. Acesso imediato sem precisar rolar a biblioteca inteira.</p></div>
+      <div class="feat-card"><span class="feat-icon">📖</span><h3 data-i18n="f3.t">Leitor completo</h3><p data-i18n="f3.d">Zoom com cursor, arrastar, rotação, controle de brilho, modo imersivo e barra de progresso clicável.</p></div>
+      <div class="feat-card"><span class="feat-icon">▭▭</span><h3 data-i18n="f4.t">Página dupla</h3><p data-i18n="f4.d">Visualize duas páginas lado a lado, inclusive no modo mangá — do jeito que o artista imaginou.</p></div>
+      <div class="feat-card"><span class="feat-icon">🖼️</span><h3 data-i18n="f5.t">Miniaturas</h3><p data-i18n="f5.d">Faixa com todas as páginas em miniatura. Clique em qualquer uma para pular direto.</p></div>
+      <div class="feat-card"><span class="feat-icon">📁</span><h3 data-i18n="f6.t">Coleções automáticas</h3><p data-i18n="f6.d">Subpastas viram coleções. Arquivos com nomes similares são agrupados em séries com progresso unificado.</p></div>
+      <div class="feat-card"><span class="feat-icon">🔖</span><h3 data-i18n="f7.t">Bookmarks</h3><p data-i18n="f7.d">Marque páginas importantes. Todos os bookmarks ficam visíveis na barra de progresso.</p></div>
+      <div class="feat-card"><span class="feat-icon">💾</span><h3 data-i18n="f8.t">Backup e restauração</h3><p data-i18n="f8.d">Exporte progresso, bookmarks e favoritos em JSON. Útil ao trocar de computador.</p></div>
     </div>
   </div>
 </section>
@@ -324,13 +310,13 @@
 
 <section id="formatos">
   <div class="wrap">
-    <div class="section-eyebrow">Formatos</div>
-    <h2 class="section-title">Seus arquivos, do seu jeito</h2>
-    <p class="section-sub">Suporte nativo a CBZ e suporte a CBR e PDF com dependências simples.</p>
+    <div class="section-eyebrow" data-i18n="fmt.eyebrow">Formatos</div>
+    <h2 class="section-title" data-i18n="fmt.title">Seus arquivos, do seu jeito</h2>
+    <p class="section-sub" data-i18n="fmt.sub">Suporte nativo a CBZ e suporte a CBR e PDF com dependências simples.</p>
     <div class="formats-grid">
-      <div class="format-item"><span class="format-ext">.cbz</span><div class="format-info"><div class="fname">CBZ / ZIP</div><div class="fnote">Suporte nativo — nenhuma dependência</div></div></div>
-      <div class="format-item"><span class="format-ext">.cbr</span><div class="format-info"><div class="fname">CBR / RAR</div><div class="fnote">Requer WinRAR instalado</div></div></div>
-      <div class="format-item"><span class="format-ext">.pdf</span><div class="format-info"><div class="fname">PDF</div><div class="fnote">Requer <code style="font-size:11px;color:var(--accent2)">pip install pymupdf</code></div></div></div>
+      <div class="format-item"><span class="format-ext">.cbz</span><div class="format-info"><div class="fname">CBZ / ZIP</div><div class="fnote" data-i18n="cbz.note">Suporte nativo — nenhuma dependência</div></div></div>
+      <div class="format-item"><span class="format-ext">.cbr</span><div class="format-info"><div class="fname">CBR / RAR</div><div class="fnote" data-i18n="cbr.note">Requer WinRAR instalado</div></div></div>
+      <div class="format-item"><span class="format-ext">.pdf</span><div class="format-info"><div class="fname">PDF</div><div class="fnote" data-i18n="pdf.note">Requer <code style="font-size:11px;color:var(--accent2)">pip install pymupdf</code></div></div></div>
     </div>
   </div>
 </section>
@@ -339,22 +325,22 @@
 
 <section id="atalhos">
   <div class="wrap">
-    <div class="section-eyebrow">Atalhos</div>
-    <h2 class="section-title">Controle total pelo teclado</h2>
-    <p class="section-sub">Todas as ações mais usadas com uma mão só.</p>
+    <div class="section-eyebrow" data-i18n="kb.eyebrow">Atalhos</div>
+    <h2 class="section-title" data-i18n="kb.title">Controle total pelo teclado</h2>
+    <p class="section-sub" data-i18n="kb.sub">Todas as ações mais usadas com uma mão só.</p>
     <div class="shortcuts-grid">
-      <div class="shortcut-row"><span class="action">Próxima página</span><div class="kbd-group"><kbd>→</kbd><span class="kbd-sep">·</span><kbd>PageDown</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Página anterior</span><div class="kbd-group"><kbd>←</kbd><span class="kbd-sep">·</span><kbd>PageUp</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Zoom</span><div class="kbd-group"><kbd>=</kbd><span class="kbd-sep">/</span><kbd>-</kbd><span class="kbd-sep">·</span><kbd>Ctrl</kbd><kbd>Scroll</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Tela cheia</span><div class="kbd-group"><kbd>F</kbd><span class="kbd-sep">·</span><kbd>F11</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Modo imersivo</span><div class="kbd-group"><kbd>I</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Girar página</span><div class="kbd-group"><kbd>R</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Brilho</span><div class="kbd-group"><kbd>[</kbd><span class="kbd-sep">/</span><kbd>]</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Bookmark</span><div class="kbd-group"><kbd>B</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Miniaturas</span><div class="kbd-group"><kbd>G</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Alternar tema</span><div class="kbd-group"><kbd>T</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Ver atalhos</span><div class="kbd-group"><kbd>?</kbd></div></div>
-      <div class="shortcut-row"><span class="action">Sair tela cheia</span><div class="kbd-group"><kbd>Esc</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.next">Próxima página</span><div class="kbd-group"><kbd>→</kbd><span class="kbd-sep">·</span><kbd>PageDown</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.prev">Página anterior</span><div class="kbd-group"><kbd>←</kbd><span class="kbd-sep">·</span><kbd>PageUp</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.zoom">Zoom</span><div class="kbd-group"><kbd>=</kbd><span class="kbd-sep">/</span><kbd>-</kbd><span class="kbd-sep">·</span><kbd>Ctrl</kbd><kbd>Scroll</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.fs">Tela cheia</span><div class="kbd-group"><kbd>F</kbd><span class="kbd-sep">·</span><kbd>F11</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.imm">Modo imersivo</span><div class="kbd-group"><kbd>I</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.rot">Girar página</span><div class="kbd-group"><kbd>R</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.bri">Brilho</span><div class="kbd-group"><kbd>[</kbd><span class="kbd-sep">/</span><kbd>]</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.bkm">Bookmark</span><div class="kbd-group"><kbd>B</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.thu">Miniaturas</span><div class="kbd-group"><kbd>G</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.thm">Alternar tema</span><div class="kbd-group"><kbd>T</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.hlp">Ver atalhos</span><div class="kbd-group"><kbd>?</kbd></div></div>
+      <div class="shortcut-row"><span class="action" data-i18n="kb.esc">Sair tela cheia</span><div class="kbd-group"><kbd>Esc</kbd></div></div>
     </div>
   </div>
 </section>
@@ -363,23 +349,23 @@
 
 <section id="install">
   <div class="wrap">
-    <div class="section-eyebrow">Instalação</div>
-    <h2 class="section-title">Instalador ou código fonte</h2>
-    <p class="section-sub">Execute o instalador .exe ou rode direto do Python se preferir.</p>
+    <div class="section-eyebrow" data-i18n="inst.eyebrow">Instalação</div>
+    <h2 class="section-title" data-i18n="inst.title">Instalador ou código fonte</h2>
+    <p class="section-sub" data-i18n="inst.sub">Execute o instalador .exe ou rode direto do Python se preferir.</p>
     <div class="terminal">
       <div class="terminal-bar">
         <span class="t-dot t-r"></span><span class="t-dot t-y"></span><span class="t-dot t-g"></span>
-        <span class="t-title">cmd — instalação pelo código fonte</span>
+        <span class="t-title" data-i18n="term.title">cmd — instalação pelo código fonte</span>
       </div>
       <div class="terminal-body">
-        <div class="t-line"><span class="t-comment"># Clone o repositório</span></div>
+        <div class="t-line"><span class="t-comment" data-i18n="term.c1"># Clone o repositório</span></div>
         <div class="t-line"><span class="t-prompt">></span><span class="t-cmd"> git clone https://github.com/lucrazy-fn/PANEL-ComicBookReader</span></div>
         <div class="t-line"><span class="t-prompt">></span><span class="t-cmd"> cd PANEL-ComicBookReader</span></div>
         <br>
-        <div class="t-line"><span class="t-comment"># Instale as dependências</span></div>
+        <div class="t-line"><span class="t-comment" data-i18n="term.c2"># Instale as dependências</span></div>
         <div class="t-line"><span class="t-prompt">></span><span class="t-cmd"> python -m pip install pillow rarfile pymupdf</span></div>
         <br>
-        <div class="t-line"><span class="t-comment"># Execute</span></div>
+        <div class="t-line"><span class="t-comment" data-i18n="term.c3"># Execute</span></div>
         <div class="t-line"><span class="t-prompt">></span><span class="t-cmd"> python ComicReader.py</span></div>
         <div class="t-line"><span class="t-out">  PANEL iniciado ✓</span></div>
       </div>
@@ -387,15 +373,15 @@
     <div class="platforms-list">
       <div class="plat-item active">
         <span class="plat-icon">🪟</span>
-        <div><div class="plat-name">Windows</div><div class="plat-status status-ok">✓ Suportado — Windows 10 / 11</div></div>
+        <div><div class="plat-name">Windows</div><div class="plat-status status-ok" data-i18n="plat.win">✓ Suportado — Windows 10 / 11</div></div>
       </div>
       <div class="plat-item" style="opacity:0.45">
         <span class="plat-icon">🍎</span>
-        <div><div class="plat-name">macOS</div><div class="plat-status status-soon">Em breve</div></div>
+        <div><div class="plat-name">macOS</div><div class="plat-status status-soon" data-i18n="plat.soon">Em breve</div></div>
       </div>
       <div class="plat-item" style="opacity:0.45">
         <span class="plat-icon">🐧</span>
-        <div><div class="plat-name">Linux</div><div class="plat-status status-soon">Em breve</div></div>
+        <div><div class="plat-name">Linux</div><div class="plat-status status-soon" data-i18n="plat.soon2">Em breve</div></div>
       </div>
     </div>
   </div>
@@ -408,12 +394,105 @@
     <div class="footer-links">
       <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader" target="_blank">GitHub</a>
       <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases" target="_blank">Releases</a>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/issues" target="_blank">Reportar bug</a>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/blob/main/LICENSE" target="_blank">Licença MIT</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/issues" target="_blank" data-i18n="footer.bug">Reportar bug</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/blob/main/LICENSE" target="_blank">MIT License</a>
     </div>
-    <p class="footer-copy">Feito por <a href="https://github.com/lucrazy-fn" target="_blank">@lucrazy-fn</a> · v1.2 Beta</p>
+    <p class="footer-copy"><span data-i18n="footer.made">Feito por</span> <a href="https://github.com/lucrazy-fn" target="_blank">@lucrazy-fn</a> · v1.2 Beta</p>
   </div>
 </footer>
 
+<script>
+const i18n = {
+  pt: {
+    "nav.features":"Recursos","nav.formats":"Formatos","nav.shortcuts":"Atalhos",
+    "badge":"v1.2 Beta — disponível agora",
+    "tagline":"Leitor de quadrinhos para Windows",
+    "desc":"Sem propagandas. Sem conta. Sem internet.<br>Só você e seus quadrinhos.",
+    "dlBtn":"Baixar para Windows",
+    "allVersions":"Ver todas as versões →",
+    "screensLabel":"Telas do app",
+    "screen1":"Biblioteca","screen2":"Leitor","screen3":"Hover nas capas","screen4":"Coleções",
+    "feat.eyebrow":"Recursos","feat.title":"Tudo o que você precisa para ler",
+    "feat.sub":"Feito por um leitor de quadrinhos, para leitores de quadrinhos.",
+    "f1.t":"Biblioteca inteligente","f1.d":"Capas em grade carregadas em segundo plano. Filtros por status: não lidos, lendo, concluídos e favoritos.",
+    "f2.t":"Busca rápida","f2.d":"Filtre por título, série, autor ou editora. Acesso imediato sem precisar rolar a biblioteca inteira.",
+    "f3.t":"Leitor completo","f3.d":"Zoom com cursor, arrastar, rotação, controle de brilho, modo imersivo e barra de progresso clicável.",
+    "f4.t":"Página dupla","f4.d":"Visualize duas páginas lado a lado, inclusive no modo mangá — do jeito que o artista imaginou.",
+    "f5.t":"Miniaturas","f5.d":"Faixa com todas as páginas em miniatura. Clique em qualquer uma para pular direto.",
+    "f6.t":"Coleções automáticas","f6.d":"Subpastas viram coleções. Arquivos com nomes similares são agrupados em séries com progresso unificado.",
+    "f7.t":"Bookmarks","f7.d":"Marque páginas importantes. Todos os bookmarks ficam visíveis na barra de progresso.",
+    "f8.t":"Backup e restauração","f8.d":"Exporte progresso, bookmarks e favoritos em JSON. Útil ao trocar de computador.",
+    "fmt.eyebrow":"Formatos","fmt.title":"Seus arquivos, do seu jeito",
+    "fmt.sub":"Suporte nativo a CBZ e suporte a CBR e PDF com dependências simples.",
+    "cbz.note":"Suporte nativo — nenhuma dependência",
+    "cbr.note":"Requer WinRAR instalado",
+    "pdf.note":"Requer <code style=\"font-size:11px;color:var(--accent2)\">pip install pymupdf</code>",
+    "kb.eyebrow":"Atalhos","kb.title":"Controle total pelo teclado",
+    "kb.sub":"Todas as ações mais usadas com uma mão só.",
+    "kb.next":"Próxima página","kb.prev":"Página anterior","kb.zoom":"Zoom",
+    "kb.fs":"Tela cheia","kb.imm":"Modo imersivo","kb.rot":"Girar página",
+    "kb.bri":"Brilho","kb.bkm":"Bookmark","kb.thu":"Miniaturas",
+    "kb.thm":"Alternar tema","kb.hlp":"Ver atalhos","kb.esc":"Sair tela cheia",
+    "inst.eyebrow":"Instalação","inst.title":"Instalador ou código fonte",
+    "inst.sub":"Execute o instalador .exe ou rode direto do Python se preferir.",
+    "term.title":"cmd — instalação pelo código fonte",
+    "term.c1":"# Clone o repositório","term.c2":"# Instale as dependências","term.c3":"# Execute",
+    "plat.win":"✓ Suportado — Windows 10 / 11","plat.soon":"Em breve","plat.soon2":"Em breve",
+    "footer.bug":"Reportar bug","footer.made":"Feito por"
+  },
+  en: {
+    "nav.features":"Features","nav.formats":"Formats","nav.shortcuts":"Shortcuts",
+    "badge":"v1.2 Beta — available now",
+    "tagline":"Comic book reader for Windows",
+    "desc":"No ads. No account. No internet.<br>Just you and your comics.",
+    "dlBtn":"Download for Windows",
+    "allVersions":"See all versions →",
+    "screensLabel":"App screenshots",
+    "screen1":"Library","screen2":"Reader","screen3":"Cover hover","screen4":"Collections",
+    "feat.eyebrow":"Features","feat.title":"Everything you need to read",
+    "feat.sub":"Built by a comic reader, for comic readers.",
+    "f1.t":"Smart library","f1.d":"Grid view with covers loaded in the background. Filter by status: unread, reading, completed, and favorites.",
+    "f2.t":"Fast search","f2.d":"Filter by title, series, author, or publisher. Instant access without scrolling the whole library.",
+    "f3.t":"Full-featured reader","f3.d":"Cursor zoom, drag, rotation, brightness control, immersive mode, and a clickable progress bar.",
+    "f4.t":"Double page","f4.d":"View two pages side by side, including manga mode — exactly as the artist intended.",
+    "f5.t":"Thumbnails","f5.d":"A strip of all pages as thumbnails. Click any one to jump there instantly.",
+    "f6.t":"Auto collections","f6.d":"Subfolders become collections. Files with similar names are grouped into series with unified progress.",
+    "f7.t":"Bookmarks","f7.d":"Mark important pages. All bookmarks are visible on the progress bar.",
+    "f8.t":"Backup & restore","f8.d":"Export progress, bookmarks, and favorites as JSON. Handy when switching computers.",
+    "fmt.eyebrow":"Formats","fmt.title":"Your files, your way",
+    "fmt.sub":"Native CBZ support, plus CBR and PDF with simple dependencies.",
+    "cbz.note":"Native support — no dependencies",
+    "cbr.note":"Requires WinRAR installed",
+    "pdf.note":"Requires <code style=\"font-size:11px;color:var(--accent2)\">pip install pymupdf</code>",
+    "kb.eyebrow":"Shortcuts","kb.title":"Full keyboard control",
+    "kb.sub":"All the most-used actions with one hand.",
+    "kb.next":"Next page","kb.prev":"Previous page","kb.zoom":"Zoom",
+    "kb.fs":"Fullscreen","kb.imm":"Immersive mode","kb.rot":"Rotate page",
+    "kb.bri":"Brightness","kb.bkm":"Bookmark","kb.thu":"Thumbnails",
+    "kb.thm":"Toggle theme","kb.hlp":"Show shortcuts","kb.esc":"Exit fullscreen",
+    "inst.eyebrow":"Installation","inst.title":"Installer or source code",
+    "inst.sub":"Run the .exe installer or use Python directly if you prefer.",
+    "term.title":"cmd — install from source",
+    "term.c1":"# Clone the repository","term.c2":"# Install dependencies","term.c3":"# Run",
+    "plat.win":"✓ Supported — Windows 10 / 11","plat.soon":"Coming soon","plat.soon2":"Coming soon",
+    "footer.bug":"Report a bug","footer.made":"Made by"
+  }
+};
+
+let lang = 'pt';
+
+function toggleLang() {
+  lang = lang === 'pt' ? 'en' : 'pt';
+  const isEn = lang === 'en';
+  document.getElementById('langFlag').textContent = isEn ? '🇧🇷' : '🇺🇸';
+  document.getElementById('langLabel').textContent = isEn ? 'PT' : 'EN';
+  document.documentElement.lang = isEn ? 'en' : 'pt-BR';
+  const dict = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+}
+</script>
 </body>
 </html>
