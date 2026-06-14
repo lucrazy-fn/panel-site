@@ -25,7 +25,6 @@
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -104,7 +103,7 @@
       color: var(--muted) !important; font-size: 13px !important;
       transition: border-color 0.15s, color 0.15s !important;
     }
-    .nav-gh:hover { color: var(--text) !important; }
+    .nav-gh:hover { color: var(--text) !important; border-color: var(--text); }
 
     .hero { padding: 110px 0 90px; text-align: center; }
     .badge {
@@ -137,11 +136,12 @@
       font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 10px;
       transition: background 0.15s, transform 0.1s; margin-bottom: 16px;
     }
-    .dl-main:hover { background: var(--accent2); transform: translateY(-1px); }
+    .dl-main:hover { background: var(--accent2); transform: translateY(-2px); }
     .dl-main svg { width: 20px; height: 20px; }
     .hero-meta { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 14px; }
     .hero-meta span { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
-    .hero-meta a { color: var(--accent2); text-decoration: none; font-size: 13px; }
+    .hero-meta a { color: var(--accent2); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+    .hero-meta a:hover { color: var(--accent); text-decoration: underline; }
 
     .screens-section { padding: 20px 0 80px; }
     .screens-label { text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
@@ -149,12 +149,14 @@
       display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px;
       scrollbar-width: thin; scrollbar-color: var(--surface3) transparent;
     }
-    .screens-scroll::-webkit-scrollbar { height: 4px; }
+    .screens-scroll::-webkit-scrollbar { height: 6px; }
     .screens-scroll::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 4px; }
     .screen-card {
       flex-shrink: 0; background: var(--surface); border: 1px solid var(--border);
       border-radius: 10px; overflow: hidden; width: 280px;
+      transition: border-color 0.15s;
     }
+    .screen-card:hover { border-color: var(--border2); }
     .screen-card img { width: 100%; display: block; height: 160px; object-fit: cover; object-position: top; }
     .screen-card-label { padding: 10px 14px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); }
 
@@ -165,20 +167,22 @@
     .section-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin-bottom: 44px; line-height: 1.6; }
 
     .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-    .feat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 22px 20px; transition: border-color 0.15s; }
-    .feat-card:hover { border-color: var(--border2); }
+    .feat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 22px 20px; transition: all 0.2s; }
+    .feat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
     .feat-icon { font-size: 22px; margin-bottom: 14px; display: block; }
     .feat-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
     .feat-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
     .formats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-    .format-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
+    .format-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
+    .format-item:hover { border-color: var(--border2); }
     .format-ext { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; font-weight: 600; color: var(--accent2); background: var(--accent-dim); padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
     .format-info .fname { font-size: 14px; font-weight: 500; }
     .format-info .fnote { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     .shortcuts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
-    .shortcut-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+    .shortcut-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; transition: border-color 0.15s; }
+    .shortcut-row:hover { border-color: var(--border2); }
     .shortcut-row .action { color: var(--muted); }
     .kbd-group { display: flex; gap: 4px; align-items: center; }
     kbd { background: var(--surface3); border: 1px solid var(--border2); border-radius: 5px; padding: 2px 7px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; color: var(--text); line-height: 1.6; }
@@ -195,8 +199,9 @@
     .t-line { display: flex; gap: 10px; }
 
     .platforms-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 36px; }
-    .plat-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
-    .plat-item.active { border-color: rgba(34,197,94,0.25); }
+    .plat-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
+    .plat-item:hover { border-color: var(--border2); }
+    .plat-item.active { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); }
     .plat-icon { font-size: 26px; }
     .plat-name { font-size: 14px; font-weight: 600; }
     .plat-status { font-size: 12px; margin-top: 2px; }
@@ -206,7 +211,8 @@
     .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
     .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .footer-links a:hover { color: var(--text); }
-    .footer-copy a { color: var(--accent2); text-decoration: none; }
+    .footer-copy a { color: var(--accent2); text-decoration: none; transition: color 0.15s; }
+    .footer-copy a:hover { color: var(--accent); text-decoration: underline; }
 
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -245,7 +251,7 @@
     <h1 class="hero-logo">PAN<span>E</span>L</h1>
     <p class="hero-tagline">Leitor de quadrinhos para Windows</p>
     <p>Sem propagandas. Sem conta. Sem internet.<br>Só você e seus quadrinhos.</p>
-    <a class="dl-main" href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases/latest">
+    <a class="dl-main" href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases/latest" target="_blank">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/>
         <path d="M4 18h16" stroke-linecap="round"/>
@@ -265,7 +271,7 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Licença MIT
       </span>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases">Ver todas as versões →</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases" target="_blank">Ver todas as versões →</a>
     </div>
   </div>
 </section>
@@ -276,19 +282,19 @@
     <div class="screens-scroll">
       <div class="screen-card">
         <div class="screen-card-label">Biblioteca</div>
-        <img alt="Biblioteca" src="https://github.com/user-attachments/assets/4c4a5d9f-bb73-4168-b752-f7056dc79b82" />
+        <img alt="Biblioteca" src="https://github.com/user-attachments/assets/4c4a5d9f-bb73-4168-b752-f7056dc79b82" loading="lazy" />
       </div>
       <div class="screen-card">
         <div class="screen-card-label">Leitor</div>
-        <img alt="Leitor" src="https://github.com/user-attachments/assets/0716f1d7-a6b7-4375-b6dd-7a538e4c024e" />
+        <img alt="Leitor" src="https://github.com/user-attachments/assets/0716f1d7-a6b7-4375-b6dd-7a538e4c024e" loading="lazy" />
       </div>
       <div class="screen-card">
         <div class="screen-card-label">Hover nas capas</div>
-        <img alt="Hover nas capas" src="https://github.com/user-attachments/assets/b48b07cf-1543-4e7f-bd35-e4357ad06982" />
+        <img alt="Hover nas capas" src="https://github.com/user-attachments/assets/b48b07cf-1543-4e7f-bd35-e4357ad06982" loading="lazy" />
       </div>
       <div class="screen-card">
         <div class="screen-card-label">Coleções</div>
-        <img alt="Coleções" src="https://github.com/user-attachments/assets/c7aa22d4-af69-4af9-8d30-875d5de88e21" />
+        <img alt="Coleções" src="https://github.com/user-attachments/assets/c7aa22d4-af69-4af9-8d30-875d5de88e21" loading="lazy" />
       </div>
     </div>
   </div>
@@ -400,12 +406,12 @@
 <footer>
   <div class="wrap">
     <div class="footer-links">
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader">GitHub</a>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases">Releases</a>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/issues">Reportar bug</a>
-      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/blob/main/LICENSE">Licença MIT</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader" target="_blank">GitHub</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases" target="_blank">Releases</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/issues" target="_blank">Reportar bug</a>
+      <a href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/blob/main/LICENSE" target="_blank">Licença MIT</a>
     </div>
-    <p class="footer-copy">Feito por <a href="https://github.com/lucrazy-fn">@lucrazy-fn</a> · v1.2 Beta</p>
+    <p class="footer-copy">Feito por <a href="https://github.com/lucrazy-fn" target="_blank">@lucrazy-fn</a> · v1.2 Beta</p>
   </div>
 </footer>
 
