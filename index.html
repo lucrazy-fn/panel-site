@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel - Comic Reader</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Segoe UI, sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+        }
+
+        .hero{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:40px;
+        }
+
+        .container{
+            max-width:900px;
+            text-align:center;
+        }
+
+        h1{
+            font-size:4rem;
+            margin-bottom:15px;
+        }
+
+        .subtitle{
+            color:#94a3b8;
+            font-size:1.2rem;
+            margin-bottom:30px;
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
+
+        .btn{
+            text-decoration:none;
+            padding:14px 28px;
+            border-radius:10px;
+            font-weight:bold;
+            transition:.2s;
+        }
+
+        .download{
+            background:#3b82f6;
+            color:white;
+        }
+
+        .github{
+            background:#1e293b;
+            color:white;
+        }
+
+        .btn:hover{
+            transform:translateY(-3px);
+        }
+
+        .features{
+            margin-top:60px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:#1e293b;
+            padding:25px;
+            border-radius:12px;
+        }
+
+        .card h3{
+            margin-bottom:10px;
+        }
+
+        footer{
+            text-align:center;
+            padding:30px;
+            color:#64748b;
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="container">
+
+        <h1>Panel</h1>
+
+        <p class="subtitle">
+            Lightweight Open-Source Comic Reader for CBZ and CBR files.
+        </p>
+
+        <div class="buttons">
+            <a class="btn download"
+               href="https://github.com/lucrazy-fn/PANEL-ComicBookReader/releases/latest">
+                Download
+            </a>
+
+            <a class="btn github"
+               href="https://github.com/lucrazy-fn/PANEL-ComicBookReader">
+                GitHub
+            </a>
+        </div>
+
+        <div class="features">
+
+            <div class="card">
+                <h3>📚 CBZ & CBR</h3>
+                <p>Read your comic collection locally.</p>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Lightweight</h3>
+                <p>Fast startup and low resource usage.</p>
+            </div>
+
+            <div class="card">
+                <h3>🔒 Offline</h3>
+                <p>No accounts, subscriptions or cloud services.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    © 2026 Panel Comic Reader
+</footer>
+
+</body>
+</html>
